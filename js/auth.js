@@ -49,29 +49,39 @@ authForm.onsubmit = function(event) {
 onAuthStateChanged(auth, function(user) {
     if (user) {
         console.log('Usuário autenticado');
-        console.log(user); // Exibe as informações do usuário autenticado
+        showUserContent()
+        //console.log(user); // Exibe as informações do usuário autenticado
 
         // Escondendo os campos de login e mostrando informações ou áreas específicas do usuário
         hideItem(authForm);
         // Aqui, você pode mostrar o que é necessário quando o usuário está autenticado, como um painel ou página do usuário.
 
     } else {
-        console.log('Usuário não autenticado');
+       // console.log('Usuário não autenticado');
         // Mostra o formulário de login ou cadastro quando não há um usuário autenticado
-        showItem(authForm);
+       // showItem(authForm);
+       showAuth()
     }
 });
 
-// Função para deslogar o usuário
+/// Função de deslogar o usuário
 function logoutUser() {
-    hideItem(loading); // Usa a função hideItem definida em outro arquivo para esconder o elemento de loading
+    // Esconde o conteúdo de usuário autenticado
+    hideItem(userContent);
 
+    // Mostra o formulário de login
+    showItem(auth);
+
+    // Realiza o logout
     signOut(auth).then(() => {
         console.log('Usuário desautenticado com sucesso');
     }).catch((error) => {
         console.error('Erro ao desautenticar o usuário:', error);
     });
 }
+
+// Vinculando o evento de clique no botão "Sair"
+document.getElementById('logoutBtn').addEventListener('click', logoutUser);
 
 
 // Se você quiser deslogar o usuário em um determinado momento (por exemplo, em um clique de botão), 

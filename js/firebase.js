@@ -1,6 +1,6 @@
 // Importando os módulos necessários da versão modular do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 
 // Sua configuração do Firebase
 const firebaseConfig = {
@@ -18,16 +18,14 @@ const app = initializeApp(firebaseConfig);
 // Inicializando a autenticação
 const auth = getAuth(app);
 
-// Verificar se o usuário está autenticado antes de deslogar
+// Verificar o estado de autenticação do usuário
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        console.log('Usuário autenticado, procedendo com o logout...');
-        signOut(auth).then(() => {
-            console.log('Usuário desautenticado com sucesso');
-        }).catch((error) => {
-            console.error('Erro ao desautenticar o usuário:', error);
-        });
+        console.log('Usuário autenticado:', user.email);
     } else {
         console.log('Nenhum usuário autenticado');
     }
 });
+
+// Exportando auth para usar em outros arquivos
+export { auth };

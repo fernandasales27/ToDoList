@@ -7,6 +7,9 @@
     var access = document.getElementById('access')
     var submitAuthForm = document.getElementById('submitAuthForm');
 
+    var auth = document.getElementById('auth');
+    var userContent = document.getElementById('userContent');
+
 
     //Alterar formulário de autenticação de novas contas
 
@@ -39,3 +42,18 @@
         element.style.display = 'none'
 
     }
+
+    //Mostrar conteúdo para usuários autenticados
+    function showUserContent(){
+        hideItem(auth)
+        showItem(userContent)
+
+    }
+
+      //Mostrar conteúdo para usuários não autenticados
+      function showAuth(){
+        hideItem(userContent)
+        showItem(auth)
+
+    }
+
